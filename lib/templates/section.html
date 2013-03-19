@@ -2,14 +2,18 @@
   <h1>{{title}}</h1>
   <h2>{{type}}</h2>
 
-  <dl>
-  {{#params}}
-    <dt>{{name}}</dt>
-    <dd>{{description}}</dd>
-  {{/params}}
-  </dl>
+  {{#if params}}
+    <dl>
+    {{#params}}
+      <dt>{{name}}</dt>
+      <dd>{{description}}</dd>
+    {{/params}}
+    </dl>
+  {{/if}}
 
-  <p>{{{description}}}</p>
+  {{#if description}}
+    {{{description}}}
+  {{/if}}
 
   <pre>
     <code>{{{code}}}</code>
