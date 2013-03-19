@@ -1,0 +1,24 @@
+{
+  "name": "doxen",
+  "description": "Markup dox json output to usable html",
+  "version": "0.0.1",
+  "author": "vanetix <matmcfarland@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:vanetix/doxen.git"
+  },
+  "scripts": {
+    "test": "make test"
+  },
+  "keywords": [
+    "dox",
+    "documentation"
+  ],
+  "devDependencies": {
+    "mocha": "*",
+    "should": "*"
+  },
+  "dependencies": {
+    "mustache": "~0.7.2"
+  }
+}

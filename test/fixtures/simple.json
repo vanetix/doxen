@@ -1,0 +1,69 @@
+[
+  {
+    "tags": [
+      {
+        "type": "type",
+        "types": [
+          "String"
+        ]
+      },
+      {
+        "type": "api",
+        "visibility": "public"
+      }
+    ],
+    "description": {
+      "full": "<p>Library version.</p>",
+      "summary": "<p>Library version.</p>",
+      "body": ""
+    },
+    "isPrivate": false,
+    "ignore": false,
+    "code": "exports.version = '0.0.1';",
+    "ctx": {
+      "type": "property",
+      "receiver": "exports",
+      "name": "version",
+      "value": "'0.0.1'",
+      "string": "exports.version"
+    }
+  },
+  {
+    "tags": [
+      {
+        "type": "param",
+        "types": [
+          "String",
+          "Buffer"
+        ],
+        "name": "str",
+        "description": "to parse"
+      },
+      {
+        "type": "return",
+        "types": [
+          "String"
+        ],
+        "description": ""
+      },
+      {
+        "type": "api",
+        "visibility": "public"
+      }
+    ],
+    "description": {
+      "full": "<p>Parse the given <code>str</code>.</p>\n\n<h2>Examples</h2>\n\n<pre><code>parse(str)\n// =&gt; \"wahoo\"\n</code></pre>",
+      "summary": "<p>Parse the given <code>str</code>.</p>",
+      "body": "<h2>Examples</h2>\n\n<pre><code>parse(str)\n// =&gt; \"wahoo\"\n</code></pre>"
+    },
+    "isPrivate": false,
+    "ignore": false,
+    "code": "exports.parse = function(str) {\n  return \"wahoo\";\n}",
+    "ctx": {
+      "type": "method",
+      "receiver": "exports",
+      "name": "parse",
+      "string": "exports.parse()"
+    }
+  }
+]
