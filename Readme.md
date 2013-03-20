@@ -1,4 +1,4 @@
-# doxen
+# doxen [![Build Status](https://travis-ci.org/vanetix/doxen.png?branch=master)](https://travis-ci.org/vanetix/doxen)
 Markup your dox json output to usable html documents
 
 ## Usage
