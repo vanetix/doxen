@@ -124,7 +124,7 @@
     },
     "isPrivate": false,
     "ignore": false,
-    "code": "function build(dox) {\n  var i, len,\n      nav = '<dl>',\n      docs = '<div>';\n\n  for(i = 0, len = dox.length; i < len; i = i + 1) {\n    nav += navigation(dox[i]);\n    docs += block(dox[i]);\n  }\n\n  nav += '</dl>';\n  docs += '</div>';\n\n  return nav + docs;\n}",
+    "code": "function build(dox) {\n  var i, len,\n      nav = '<nav><dl>',\n      docs = '<div>';\n\n  for(i = 0, len = dox.length; i < len; i = i + 1) {\n    nav += navigation(dox[i]);\n    docs += block(dox[i]);\n  }\n\n  nav += '</dl></nav>';\n  docs += '</div>';\n\n  return nav + docs;\n}",
     "ctx": {
       "type": "function",
       "name": "build",
@@ -156,7 +156,7 @@
     },
     "isPrivate": false,
     "ignore": false,
-    "code": "function navigation(chunk) {\n  var data = {\n    id: makeId(chunk.code),\n    title: chunk.ctx.string,\n    description: chunk.description.short\n  };\n\n  return T.link(data);\n}",
+    "code": "function navigation(chunk) {\n  var data = {\n    id: makeId(chunk.code),\n    title: chunk.ctx.string,\n    description: chunk.description.summary\n  };\n\n  return T.link(data);\n}",
     "ctx": {
       "type": "function",
       "name": "navigation",

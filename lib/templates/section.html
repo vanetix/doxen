@@ -3,19 +3,17 @@
   <h2>{{type}}</h2>
 
   {{#if params}}
-    <dl>
+    <h3>Parameters:</h3>
+    <ol>
     {{#params}}
-      <dt>{{name}}</dt>
-      <dd>{{description}}</dd>
+      <li>{{name}} - {{description}}</li>
     {{/params}}
-    </dl>
+    </ol>
   {{/if}}
 
   {{#if description}}
     {{{description}}}
   {{/if}}
 
-  <pre>
-    <code>{{{code}}}</code>
-  </pre>
+  <pre><code>{{code}}</code></pre>
 </section>

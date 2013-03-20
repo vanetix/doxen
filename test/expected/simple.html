@@ -1,20 +1,20 @@
-<dl><dt><a href="#657d878df3">fs</a></dt>
-<dd>&lt;p&gt;Module dependencies&lt;/p&gt;</dd>
+<nav><dl><dt><a href="#657d878df3">fs</a></dt>
+<dd><p>Module dependencies</p></dd>
 <dt><a href="#fa4b04a163">T</a></dt>
-<dd>&lt;p&gt;Global templates&lt;/p&gt;</dd>
+<dd><p>Global templates</p></dd>
 <dt><a href="#8c8b3c828e">Doxen</a></dt>
-<dd>&lt;p&gt;Expose &lt;code&gt;Doxen&lt;/code&gt;&lt;br /&gt;- Returns an html representation of dox object &lt;code&gt;dox&lt;/code&gt;&lt;/p&gt;</dd>
+<dd><p>Expose <code>Doxen</code><br />- Returns an html representation of dox object <code>dox</code></p></dd>
 <dt><a href="#105e6d85f5">Doxen.render()</a></dt>
-<dd>&lt;p&gt;Expose the full render functionality&lt;br /&gt;- Rendered the given &lt;code&gt;obj&lt;/code&gt; to the template&lt;/p&gt;</dd>
-<dt><a href="#a52a606ff6">build()</a></dt>
-<dd>&lt;p&gt;Build docs&lt;/p&gt;</dd>
-<dt><a href="#ae07325fdb">navigation()</a></dt>
-<dd>&lt;p&gt;Build the navigation pane for a block&lt;/p&gt;</dd>
+<dd><p>Expose the full render functionality<br />- Rendered the given <code>obj</code> to the template</p></dd>
+<dt><a href="#1f11fa6edf">build()</a></dt>
+<dd><p>Build docs</p></dd>
+<dt><a href="#f9af7fa67a">navigation()</a></dt>
+<dd><p>Build the navigation pane for a block</p></dd>
 <dt><a href="#5492d808f6">block()</a></dt>
-<dd>&lt;p&gt;Build the section for given &lt;code&gt;chunk&lt;/code&gt;&lt;/p&gt;</dd>
+<dd><p>Build the section for given <code>chunk</code></p></dd>
 <dt><a href="#8cacfc7c15">makeId()</a></dt>
-<dd>&lt;p&gt;Return a hash of &lt;code&gt;code&lt;/code&gt; to use for element id&lt;/p&gt;</dd>
-</dl><div><section id="657d878df3">
+<dd><p>Return a hash of <code>code</code> to use for element id</p></dd>
+</dl></nav><div><section id="657d878df3">
   <h1>fs</h1>
   <h2>declaration</h2>
 
@@ -24,11 +24,9 @@
     <p>Module dependencies</p>
   
 
-  <pre>
-    <code>var fs = require('fs'),
-    crypto = require('crypto'),
-    Handlebars = require('handlebars');</code>
-  </pre>
+  <pre><code>var fs = require(&#x27;fs&#x27;),
+    crypto = require(&#x27;crypto&#x27;),
+    Handlebars = require(&#x27;handlebars&#x27;);</code></pre>
 </section>
 <section id="fa4b04a163">
   <h1>T</h1>
@@ -40,161 +38,149 @@
     <p>Global templates</p>
   
 
-  <pre>
-    <code>var T = {
+  <pre><code>var T = {
   link: Handlebars.compile(fs.readFileSync(
-                __dirname + '/templates/link.html', 'utf8')),
+                __dirname + &#x27;/templates/link.html&#x27;, &#x27;utf8&#x27;)),
   layout: Handlebars.compile(fs.readFileSync(
-                __dirname + '/templates/layout.html', 'utf8')),
+                __dirname + &#x27;/templates/layout.html&#x27;, &#x27;utf8&#x27;)),
   section: Handlebars.compile(fs.readFileSync(
-                __dirname + '/templates/section.html', 'utf8'))
-};</code>
-  </pre>
+                __dirname + &#x27;/templates/section.html&#x27;, &#x27;utf8&#x27;))
+};</code></pre>
 </section>
 <section id="8c8b3c828e">
   <h1>Doxen</h1>
   <h2>declaration</h2>
 
   
-    <dl>
+    <h3>Parameters:</h3>
+    <ol>
     
-      <dt>dox</dt>
-      <dd></dd>
+      <li>dox - </li>
     
-    </dl>
+    </ol>
   
 
   
     <p>Expose <code>Doxen</code><br />- Returns an html representation of dox object <code>dox</code></p>
   
 
-  <pre>
-    <code>var Doxen = module.exports = function doxen(dox) {
-  if(typeof dox !== 'object') {
+  <pre><code>var Doxen = module.exports = function doxen(dox) {
+  if(typeof dox !== &#x27;object&#x27;) {
     try {
       dox = JSON.parse(json);
     } catch(e) {
-      return 'Invalid json';
+      return &#x27;Invalid json&#x27;;
     }
   }
 
   return build(dox);
-};</code>
-  </pre>
+};</code></pre>
 </section>
 <section id="105e6d85f5">
   <h1>Doxen.render()</h1>
   <h2>method</h2>
 
   
-    <dl>
+    <h3>Parameters:</h3>
+    <ol>
     
-      <dt>dox</dt>
-      <dd></dd>
+      <li>dox - </li>
     
-      <dt>data</dt>
-      <dd></dd>
+      <li>data - </li>
     
-    </dl>
+    </ol>
   
 
   
     <p>Expose the full render functionality<br />- Rendered the given <code>obj</code> to the template</p>
   
 
-  <pre>
-    <code>Doxen.render = function render(dox, data) {
+  <pre><code>Doxen.render = function render(dox, data) {
   data = data || {};
-  data.title = data.title || 'Doxen';
+  data.title = data.title || &#x27;Doxen&#x27;;
   data.content = data.content || build(dox);
 
   return T.layout(data);
-}</code>
-  </pre>
+}</code></pre>
 </section>
-<section id="a52a606ff6">
+<section id="1f11fa6edf">
   <h1>build()</h1>
   <h2>function</h2>
 
   
-    <dl>
+    <h3>Parameters:</h3>
+    <ol>
     
-      <dt>dox</dt>
-      <dd></dd>
+      <li>dox - </li>
     
-    </dl>
+    </ol>
   
 
   
     <p>Build docs</p>
   
 
-  <pre>
-    <code>function build(dox) {
+  <pre><code>function build(dox) {
   var i, len,
-      nav = '<dl>',
-      docs = '<div>';
+      nav = &#x27;&lt;nav&gt;&lt;dl&gt;&#x27;,
+      docs = &#x27;&lt;div&gt;&#x27;;
 
-  for(i = 0, len = dox.length; i < len; i = i + 1) {
+  for(i = 0, len = dox.length; i &lt; len; i = i + 1) {
     nav += navigation(dox[i]);
     docs += block(dox[i]);
   }
 
-  nav += '</dl>';
-  docs += '</div>';
+  nav += &#x27;&lt;/dl&gt;&lt;/nav&gt;&#x27;;
+  docs += &#x27;&lt;/div&gt;&#x27;;
 
   return nav + docs;
-}</code>
-  </pre>
+}</code></pre>
 </section>
-<section id="ae07325fdb">
+<section id="f9af7fa67a">
   <h1>navigation()</h1>
   <h2>function</h2>
 
   
-    <dl>
+    <h3>Parameters:</h3>
+    <ol>
     
-      <dt>chunk</dt>
-      <dd></dd>
+      <li>chunk - </li>
     
-    </dl>
+    </ol>
   
 
   
     <p>Build the navigation pane for a block</p>
   
 
-  <pre>
-    <code>function navigation(chunk) {
+  <pre><code>function navigation(chunk) {
   var data = {
     id: makeId(chunk.code),
     title: chunk.ctx.string,
-    description: chunk.description.short
+    description: chunk.description.summary
   };
 
   return T.link(data);
-}</code>
-  </pre>
+}</code></pre>
 </section>
 <section id="5492d808f6">
   <h1>block()</h1>
   <h2>function</h2>
 
   
-    <dl>
+    <h3>Parameters:</h3>
+    <ol>
     
-      <dt>chunk</dt>
-      <dd></dd>
+      <li>chunk - </li>
     
-    </dl>
+    </ol>
   
 
   
     <p>Build the section for given <code>chunk</code></p>
   
 
-  <pre>
-    <code>function block(chunk) {
+  <pre><code>function block(chunk) {
   var data = {
     code: chunk.code,
     title: chunk.ctx.string,
@@ -202,10 +188,10 @@
     type: chunk.ctx.type,
     description: chunk.description.full,
     params: chunk.tags.filter(function(tag) {
-      return tag.type === 'param';
+      return tag.type === &#x27;param&#x27;;
     }).map(function(tag) {
       return {
-        types: tag.types.join(', '),
+        types: tag.types.join(&#x27;, &#x27;),
         name: tag.name,
         description: tag.description
       };
@@ -213,30 +199,27 @@
   };
   
   return T.section(data);
-}</code>
-  </pre>
+}</code></pre>
 </section>
 <section id="8cacfc7c15">
   <h1>makeId()</h1>
   <h2>function</h2>
 
   
-    <dl>
+    <h3>Parameters:</h3>
+    <ol>
     
-      <dt>code</dt>
-      <dd></dd>
+      <li>code - </li>
     
-    </dl>
+    </ol>
   
 
   
     <p>Return a hash of <code>code</code> to use for element id</p>
   
 
-  <pre>
-    <code>function makeId(code) {
-  return crypto.createHash('md5').update(code).digest('hex').slice(0, 10);
-}</code>
-  </pre>
+  <pre><code>function makeId(code) {
+  return crypto.createHash(&#x27;md5&#x27;).update(code).digest(&#x27;hex&#x27;).slice(0, 10);
+}</code></pre>
 </section>
 </div>
