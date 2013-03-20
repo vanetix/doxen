@@ -3,16 +3,23 @@
  */
 
 var fs = require('fs'),
-    doxen = require('../');
+    Doxen = require('../');
 
 /**
- * Simple helper function for reading test cases
+ * Case function to execute a case
+ * - invokes callback with `case`, `expected`
+ *
+ * @param {String} f
+ * @param {Function} fn
  */
 
-function readJson(f, fn) {
-  fs.readFile(__dirname + '/fixtures/' + f, function(err, data) {
+function readCase(f, fn) {
+  fs.readFile(__dirname + '/fixtures/' + f + '.json', function(err, c) {
     if(err) throw err;
-    return fn(JSON.parse(data));
+    fs.readFile(__dirname + '/expected/' + f + '.html', function(err, e) {
+      if(err) throw err;
+      return fn(c.toString('utf8'), e.toString('utf8'));
+    });
   });
 }
 
@@ -22,13 +29,22 @@ function readJson(f, fn) {
 
 module.exports = {
   'test base case': function(done) {
-    readJson('simple.json', function(dox) {
-     var s = doxen(dox);
-     console.dir(s);
+    var actual;
 
-     fs.writeFileSync('./tmp.html', s);
-
-     done();
+    readCase('simple', function(c, expected) {
+      actual = Doxen(JSON.parse(c));
+      actual.should.equal(expected);
+      done();
     });
   },
+
+  'test full render case': function(done) {
+    var actual;
+
+    readCase('render', function(c, expected) {
+      actual = Doxen.render(JSON.parse(c));
+      actual.should.equal(expected);
+      done();
+    });
+  }
 };

@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Doxen</title>
+  <style type="text/css">
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "Helvetica";
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    nav {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      margin: 0;
+      width: 20%;
+      border-right: 1px solid #666;
+      padding: 0 10px;
+      box-sizing: border-box;
+      overflow: auto;
+    }
+
+    div {
+      position: absolute;
+      top: 0;
+      left: 20%;
+      width: 80%;
+      bottom: 0;
+      margin: 0;
+      padding: 0 10px;
+      box-sizing: border-box;
+      overflow: auto;
+    }
+
+    section {
+      border-bottom: 1px solid #ccc;
+    }
+
+      section:last-child {
+        border-bottom: none;
+      }
+  </style>
+</head>
+<body>
+  <dl><dt><a href="#657d878df3">fs</a></dt>
+<dd>&lt;p&gt;Module dependencies&lt;/p&gt;</dd>
+<dt><a href="#fa4b04a163">T</a></dt>
+<dd>&lt;p&gt;Global templates&lt;/p&gt;</dd>
+<dt><a href="#8c8b3c828e">Doxen</a></dt>
+<dd>&lt;p&gt;Expose &lt;code&gt;Doxen&lt;/code&gt;&lt;br /&gt;- Returns an html representation of dox object &lt;code&gt;dox&lt;/code&gt;&lt;/p&gt;</dd>
+<dt><a href="#105e6d85f5">Doxen.render()</a></dt>
+<dd>&lt;p&gt;Expose the full render functionality&lt;br /&gt;- Rendered the given &lt;code&gt;obj&lt;/code&gt; to the template&lt;/p&gt;</dd>
+<dt><a href="#a52a606ff6">build()</a></dt>
+<dd>&lt;p&gt;Build docs&lt;/p&gt;</dd>
+<dt><a href="#ae07325fdb">navigation()</a></dt>
+<dd>&lt;p&gt;Build the navigation pane for a block&lt;/p&gt;</dd>
+<dt><a href="#5492d808f6">block()</a></dt>
+<dd>&lt;p&gt;Build the section for given &lt;code&gt;chunk&lt;/code&gt;&lt;/p&gt;</dd>
+<dt><a href="#8cacfc7c15">makeId()</a></dt>
+<dd>&lt;p&gt;Return a hash of &lt;code&gt;code&lt;/code&gt; to use for element id&lt;/p&gt;</dd>
+</dl><div><section id="657d878df3">
+  <h1>fs</h1>
+  <h2>declaration</h2>
+
+  
+
+  
+    <p>Module dependencies</p>
+  
+
+  <pre>
+    <code>var fs = require('fs'),
+    crypto = require('crypto'),
+    Handlebars = require('handlebars');</code>
+  </pre>
+</section>
+<section id="fa4b04a163">
+  <h1>T</h1>
+  <h2>declaration</h2>
+
+  
+
+  
+    <p>Global templates</p>
+  
+
+  <pre>
+    <code>var T = {
+  link: Handlebars.compile(fs.readFileSync(
+                __dirname + '/templates/link.html', 'utf8')),
+  layout: Handlebars.compile(fs.readFileSync(
+                __dirname + '/templates/layout.html', 'utf8')),
+  section: Handlebars.compile(fs.readFileSync(
+                __dirname + '/templates/section.html', 'utf8'))
+};</code>
+  </pre>
+</section>
+<section id="8c8b3c828e">
+  <h1>Doxen</h1>
+  <h2>declaration</h2>
+
+  
+    <dl>
+    
+      <dt>dox</dt>
+      <dd></dd>
+    
+    </dl>
+  
+
+  
+    <p>Expose <code>Doxen</code><br />- Returns an html representation of dox object <code>dox</code></p>
+  
+
+  <pre>
+    <code>var Doxen = module.exports = function doxen(dox) {
+  if(typeof dox !== 'object') {
+    try {
+      dox = JSON.parse(json);
+    } catch(e) {
+      return 'Invalid json';
+    }
+  }
+
+  return build(dox);
+};</code>
+  </pre>
+</section>
+<section id="105e6d85f5">
+  <h1>Doxen.render()</h1>
+  <h2>method</h2>
+
+  
+    <dl>
+    
+      <dt>dox</dt>
+      <dd></dd>
+    
+      <dt>data</dt>
+      <dd></dd>
+    
+    </dl>
+  
+
+  
+    <p>Expose the full render functionality<br />- Rendered the given <code>obj</code> to the template</p>
+  
+
+  <pre>
+    <code>Doxen.render = function render(dox, data) {
+  data = data || {};
+  data.title = data.title || 'Doxen';
+  data.content = data.content || build(dox);
+
+  return T.layout(data);
+}</code>
+  </pre>
+</section>
+<section id="a52a606ff6">
+  <h1>build()</h1>
+  <h2>function</h2>
+
+  
+    <dl>
+    
+      <dt>dox</dt>
+      <dd></dd>
+    
+    </dl>
+  
+
+  
+    <p>Build docs</p>
+  
+
+  <pre>
+    <code>function build(dox) {
+  var i, len,
+      nav = '<dl>',
+      docs = '<div>';
+
+  for(i = 0, len = dox.length; i < len; i = i + 1) {
+    nav += navigation(dox[i]);
+    docs += block(dox[i]);
+  }
+
+  nav += '</dl>';
+  docs += '</div>';
+
+  return nav + docs;
+}</code>
+  </pre>
+</section>
+<section id="ae07325fdb">
+  <h1>navigation()</h1>
+  <h2>function</h2>
+
+  
+    <dl>
+    
+      <dt>chunk</dt>
+      <dd></dd>
+    
+    </dl>
+  
+
+  
+    <p>Build the navigation pane for a block</p>
+  
+
+  <pre>
+    <code>function navigation(chunk) {
+  var data = {
+    id: makeId(chunk.code),
+    title: chunk.ctx.string,
+    description: chunk.description.short
+  };
+
+  return T.link(data);
+}</code>
+  </pre>
+</section>
+<section id="5492d808f6">
+  <h1>block()</h1>
+  <h2>function</h2>
+
+  
+    <dl>
+    
+      <dt>chunk</dt>
+      <dd></dd>
+    
+    </dl>
+  
+
+  
+    <p>Build the section for given <code>chunk</code></p>
+  
+
+  <pre>
+    <code>function block(chunk) {
+  var data = {
+    code: chunk.code,
+    title: chunk.ctx.string,
+    id: makeId(chunk.code),
+    type: chunk.ctx.type,
+    description: chunk.description.full,
+    params: chunk.tags.filter(function(tag) {
+      return tag.type === 'param';
+    }).map(function(tag) {
+      return {
+        types: tag.types.join(', '),
+        name: tag.name,
+        description: tag.description
+      };
+    })
+  };
+  
+  return T.section(data);
+}</code>
+  </pre>
+</section>
+<section id="8cacfc7c15">
+  <h1>makeId()</h1>
+  <h2>function</h2>
+
+  
+    <dl>
+    
+      <dt>code</dt>
+      <dd></dd>
+    
+    </dl>
+  
+
+  
+    <p>Return a hash of <code>code</code> to use for element id</p>
+  
+
+  <pre>
+    <code>function makeId(code) {
+  return crypto.createHash('md5').update(code).digest('hex').slice(0, 10);
+}</code>
+  </pre>
+</section>
+</div>
+</body>
+</html>
