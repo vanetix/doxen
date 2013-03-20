@@ -7,6 +7,9 @@
     "type": "git",
     "url": "git@github.com:vanetix/doxen.git"
   },
+  "bin": {
+    "doxen": "./bin/doxen"
+  },
   "scripts": {
     "test": "make test"
   },
@@ -19,6 +22,7 @@
     "should": "*"
   },
   "dependencies": {
-    "handlebars": "~1.0.10"
+    "handlebars": "~1.0.10",
+    "commander": "~1.1.1"
   }
 }

@@ -1,0 +1,45 @@
+#!/usr/bin/env node
+
+/**
+ * Script dependencies
+ */
+
+var doxen = require('../'),
+    package = require('../package'),
+    commander = require('commander');
+
+/**
+ * Commander options
+ */
+
+commander
+  .version(package.version)
+  .option('-s, --short', 'output just the internal html for the docs')
+  .option('-t, --title [value]', 'title to use when generating the full page', 'Doxen');
+
+commander.on('--help', function() {
+  console.log('  Example: doxen -t API < dox.json > api.html');
+});
+
+commander.parse(process.argv);
+
+/**
+ * Main script logic
+ */
+
+var stdin = '';
+
+process.stdin.setEncoding('utf8');
+process.stdin.on('data', function(s) {
+  stdin += s;
+});
+
+process.stdin.on('end', function() {
+  if(commander.short) {
+    process.stdout.write(doxen(stdin));
+  } else {
+    process.stdout.write(doxen.render(stdin, {title: commander.title}));
+  }
+});
+
+process.stdin.resume();
